@@ -43,6 +43,7 @@ class LocalVectorCollection:
         self._save()
 
     def query(self, query_embeddings: List[List[float]], n_results: int = 4, where: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        self._load()
         results_ids = []
         results_docs = []
         results_metas = []

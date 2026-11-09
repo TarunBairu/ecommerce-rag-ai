@@ -20,20 +20,23 @@ class EcommerceRAGPipeline:
 
     def classify_intent(self, query: str) -> str:
         """Classify shopper query into product discovery, policy inquiry, or hybrid."""
+        import re
         q = query.lower()
 
         policy_keywords = [
-            "return", "refund", "exchange", "shipping", "deliver", "warranty",
-            "guarantee", "price match", "cancel", "fee", "international", "restocking", "payment"
+            r"\breturns?\b", r"\brefunds?\b", r"\bexchanges?\b", r"\bshipping\b", r"\bdeliver(y|ies)?\b",
+            r"\bwarranty\b", r"\bguarantee\b", r"\bprice match\b", r"\bcancel\b", r"\bfees?\b",
+            r"\binternational\b", r"\brestocking\b", r"\bpayments?\b"
         ]
         product_keywords = [
-            "recommend", "suggest", "find", "looking for", "best", "compare",
-            "headphone", "shoe", "laptop", "watch", "air fryer", "vacuum", "coffee",
-            "sony", "bose", "apple", "nike", "asics", "dyson", "ninja", "under $"
+            r"\brecommend\b", r"\bsuggest\b", r"\bfind\b", r"\blooking for\b", r"\bbest\b", r"\bcompare\b",
+            r"\bheadphones?\b", r"\bshoes?\b", r"\blaptops?\b", r"\bwatch(es)?\b", r"\bair fryer\b",
+            r"\bvacuums?\b", r"\bcoffee\b", r"\bsony\b", r"\bbose\b", r"\bapple\b", r"\bnike\b",
+            r"\basics\b", r"\bdyson\b", r"\bninja\b", r"\bunder\s+\$?\d+"
         ]
 
-        has_policy = any(k in q for k in policy_keywords)
-        has_product = any(k in q for k in product_keywords)
+        has_policy = any(re.search(p, q) for p in policy_keywords)
+        has_product = any(re.search(p, q) for p in product_keywords)
 
         if has_policy and has_product:
             return "hybrid"
@@ -48,8 +51,16 @@ class EcommerceRAGPipeline:
         intent = self.classify_intent(query)
         logger.info(f"Classified query intent: {intent} for '{query}'")
 
-        # In hybrid or general, retrieve across both. If purely product or policy, prioritize corresponding types
-        retrieved_chunks = self.retriever.retrieve(query, top_k=top_k)
+        # Route retrieval based on intent
+        filter_meta = None
+        if intent == "product_recommendation":
+            filter_meta = {"type": "product"}
+        elif intent == "policy_support":
+            filter_meta = {"type": "policy"}
+
+        retrieved_chunks = self.retriever.retrieve(query, top_k=top_k, filter_metadata=filter_meta)
+        if not retrieved_chunks and filter_meta:
+            retrieved_chunks = self.retriever.retrieve(query, top_k=top_k)
 
         # Build grounded prompt
         prompt = self.prompt_builder.build_prompt(query, retrieved_chunks, intent=intent)
