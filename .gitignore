@@ -1,0 +1,39 @@
+# Environment variables and secrets
+.env
+.env.local
+*.env
+
+# SQLite and Local Data Storage
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/vector_store/
+
+# Logs
+app/logs/*.log
+*.log
+
+# Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+.DS_Store

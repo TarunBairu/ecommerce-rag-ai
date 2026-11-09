@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  ecommerce-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: shopwise-ecommerce-ai
+    ports:
+      - "8002:8002"
+    environment:
+      - APP_PORT=8002
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://ecom_user:ecom_pass@postgres-db:5432/ecom_db
+      - SQLITE_FALLBACK_URL=sqlite:///./data/ecommerce.db
+      - LLM_PROVIDER=groq
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - ../data:/app/data
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres-db:
+    image: pgvector/pgvector:pg16
+    container_name: shopwise-postgres
+    environment:
+      POSTGRES_USER: ecom_user
+      POSTGRES_PASSWORD: ecom_pass
+      POSTGRES_DB: ecom_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecom_user -d ecom_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

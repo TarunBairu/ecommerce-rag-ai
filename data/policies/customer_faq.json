@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Returns",
+    "question": "Can I return opened headphones or laptops?",
+    "answer": "Yes, opened electronics including headphones and laptops can be returned within 14 calendar days of delivery. They must be in original condition with all accessories. A 10% restocking fee may apply if packaging is damaged."
+  },
+  {
+    "category": "Shipping",
+    "question": "How do I qualify for free shipping?",
+    "answer": "All domestic US orders with a subtotal of $50.00 or more automatically receive Free Standard Ground Shipping (3–5 business days) at checkout."
+  },
+  {
+    "category": "Price Match",
+    "question": "Does ShopWise price match Amazon or Best Buy?",
+    "answer": "Yes! We price match identical in-stock items shipped and sold by Amazon, Best Buy, Target, or Walmart within 14 calendar days of your order."
+  },
+  {
+    "category": "Warranty",
+    "question": "Does the standard warranty cover water damage or dropped items?",
+    "answer": "No. The standard 12-month manufacturer warranty only covers hardware manufacturing defects. Accidental spills and drops require our optional ShopWise Care 2-Year Extended Protection Plan."
+  }
+]
