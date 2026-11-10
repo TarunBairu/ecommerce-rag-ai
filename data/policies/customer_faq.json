@@ -2,21 +2,61 @@
   {
     "category": "Returns",
     "question": "Can I return opened headphones or laptops?",
-    "answer": "Yes, opened electronics including headphones and laptops can be returned within 14 calendar days of delivery. They must be in original condition with all accessories. A 10% restocking fee may apply if packaging is damaged."
+    "answer": "Yes, eligible opened electronics such as headphones and laptops can be returned within 7 days of delivery, subject to the product's return policy. Products must be in good condition with original packaging, accessories and invoice. Certain products may only qualify for replacement."
+  },
+  {
+    "category": "Returns",
+    "question": "How can I return a product?",
+    "answer": "Customers can request a return through their account by visiting My Orders, selecting the product and clicking Return or Replace. After the request is approved, a pickup will be scheduled or the customer will receive return instructions."
+  },
+  {
+    "category": "Returns",
+    "question": "Can I return a product if I receive a damaged item?",
+    "answer": "Yes. Customers should report damaged, defective or incorrect products within 48 hours of delivery. They may need to upload photographs or videos as proof. Depending on verification and product eligibility, a replacement or refund will be provided."
   },
   {
     "category": "Shipping",
     "question": "How do I qualify for free shipping?",
-    "answer": "All domestic US orders with a subtotal of $50.00 or more automatically receive Free Standard Ground Shipping (3–5 business days) at checkout."
+    "answer": "Orders with a product subtotal of ₹499 or more qualify for free standard shipping across eligible Indian delivery locations. Orders below ₹499 may have a delivery charge starting from ₹40. Shipping charges are displayed during checkout."
+  },
+  {
+    "category": "Shipping",
+    "question": "How long does delivery take in India?",
+    "answer": "Standard delivery generally takes 3 to 7 business days depending on the delivery location. Metro cities may receive orders earlier, while remote locations may require additional delivery time. The estimated delivery date is displayed during checkout."
+  },
+  {
+    "category": "Shipping",
+    "question": "Can I track my order after placing it?",
+    "answer": "Yes. Customers can visit My Orders and select Track Order to view the latest shipment status, courier information and estimated delivery date. Tracking details become available after the order is dispatched."
+  },
+  {
+    "category": "Payment",
+    "question": "What payment methods are accepted?",
+    "answer": "We accept UPI payments through supported apps such as Google Pay, PhonePe and Paytm, along with debit cards, credit cards, net banking and Cash on Delivery for eligible orders and locations."
+  },
+  {
+    "category": "Payment",
+    "question": "What happens if money is deducted but my order is not placed?",
+    "answer": "If payment is deducted but the order is not confirmed, customers should wait for the payment status to update. Failed transactions are generally reversed automatically within 5 to 7 business days, depending on the bank or payment provider."
   },
   {
     "category": "Price Match",
-    "question": "Does ShopWise price match Amazon or Best Buy?",
-    "answer": "Yes! We price match identical in-stock items shipped and sold by Amazon, Best Buy, Target, or Walmart within 14 calendar days of your order."
+    "question": "Does the store offer price matching with Amazon India or Flipkart?",
+    "answer": "Customers can request a price review if an identical product is available at a lower price from an authorised Indian retailer. The product must be new, in stock and sold under comparable conditions. Price matching is subject to verification and store approval."
   },
   {
     "category": "Warranty",
-    "question": "Does the standard warranty cover water damage or dropped items?",
-    "answer": "No. The standard 12-month manufacturer warranty only covers hardware manufacturing defects. Accidental spills and drops require our optional ShopWise Care 2-Year Extended Protection Plan."
+    "question": "Does the manufacturer warranty cover water damage or accidental drops?",
+    "answer": "Generally, standard manufacturer warranties cover manufacturing defects and hardware failures under normal usage. Accidental damage, water damage and physical damage are usually excluded unless an additional protection plan specifically covers them. Customers should check the manufacturer's warranty terms."
+  },
+  {
+    "category": "Warranty",
+    "question": "How can I claim a product warranty?",
+    "answer": "Customers can contact the manufacturer's authorised service centre with the original purchase invoice and product serial number. Warranty duration and coverage depend on the brand and product category."
+  },
+  {
+    "category": "Invoices",
+    "question": "Can I download a GST invoice for my purchase?",
+    "answer": "Yes. Customers can download their available GST invoice from the My Orders section after the order has been processed. Business customers should provide valid GSTIN details during checkout wherever GST invoicing is supported."
   }
 ]
