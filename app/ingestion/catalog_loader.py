@@ -20,23 +20,36 @@ class CatalogLoader:
         features = item.get("features", [])
         features_str = "\n".join([f"  * {f}" for f in features]) if features else "  * None listed"
         stock_str = "In Stock" if item.get("in_stock", True) else "Out of Stock"
+        price_num = float(item.get("price", 0.0))
+        price_str = f"₹{price_num:,.0f}" if price_num >= 500 else f"${price_num:.2f}"
 
         return (
             f"Product: {item.get('title')}\n"
             f"SKU: {item.get('sku')} | Brand: {item.get('brand')} | Category: {item.get('category')}\n"
-            f"Price: ${item.get('price', 0.0):.2f} | Customer Rating: {item.get('rating', 0.0)}/5.0 ({item.get('review_count', 0)} reviews)\n"
+            f"Price: {price_str} (Numeric: {price_num}) | Customer Rating: {item.get('rating', 0.0)}/5.0 ({item.get('review_count', 0)} reviews)\n"
             f"Availability: {stock_str} (Quantity: {item.get('stock_quantity', 0)})\n"
             f"Warranty: {item.get('warranty_months', 12)} Months\n"
             f"Key Highlights & Features:\n{features_str}\n"
             f"Description: {item.get('description', '')}"
         )
 
-    def load_from_json(self, file_path: str) -> List[Product]:
+    def load_from_json(self, file_path: str, clear_existing: bool = True) -> List[Product]:
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        return self.ingest_products(data)
+        return self.ingest_products(data, clear_existing=clear_existing)
 
-    def ingest_products(self, product_list: List[Dict[str, Any]]) -> List[Product]:
+    def ingest_products(self, product_list: List[Dict[str, Any]], clear_existing: bool = False) -> List[Product]:
+        if clear_existing:
+            logger.info("Clearing existing products from database and vector store before re-indexing...")
+            self.db.query(Product).delete()
+            self.db.commit()
+            # Remove existing product entries from vector store
+            existing_vectors = getattr(vector_db.collection, "items", {})
+            if existing_vectors:
+                prod_ids_to_del = [vid for vid, it in existing_vectors.items() if it.get("metadata", {}).get("type") == "product"]
+                if prod_ids_to_del:
+                    vector_db.delete_by_ids(prod_ids_to_del)
+
         created_products = []
         vector_ids = []
         vector_texts = []

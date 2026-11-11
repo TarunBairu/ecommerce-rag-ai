@@ -41,9 +41,19 @@ class EcommerceRetriever:
         all_candidates = []
         # Precompute query tokens for hybrid lexical scoring
         import re
-        query_tokens = [t for t in re.findall(r"\w+", query.lower()) if len(t) > 2]
-        stop_words = {"the", "and", "for", "with", "what", "how", "can", "you", "are", "this", "that"}
+        clean_q = re.sub(r"[,₹$]", "", query)
+        query_tokens = [t for t in re.findall(r"\w+", clean_q.lower()) if len(t) > 2]
+        stop_words = {"the", "and", "for", "with", "what", "how", "can", "you", "are", "this", "that", "under", "suggest", "recommend"}
         key_tokens = [t for t in query_tokens if t not in stop_words]
+
+        def token_matches(tok: str, text: str) -> bool:
+            if tok in text:
+                return True
+            if tok.endswith("s") and len(tok) > 3 and tok[:-1] in text:
+                return True
+            if len(tok) > 3 and (tok + "s") in text:
+                return True
+            return False
 
         for i in range(len(documents)):
             dist = distances[i] if i < len(distances) else 1.0
@@ -54,7 +64,7 @@ class EcommerceRetriever:
             # Lexical score based on keyword overlap across document, title, brand, category
             doc_search_space = f"{doc_text} {meta.get('title', '')} {meta.get('brand', '')} {meta.get('category', '')} {meta.get('section', '')}".lower()
             if key_tokens:
-                token_hits = sum(1 for kt in key_tokens if kt in doc_search_space)
+                token_hits = sum(1 for kt in key_tokens if token_matches(kt, doc_search_space))
                 lexical_score = token_hits / len(key_tokens)
             else:
                 lexical_score = 0.0

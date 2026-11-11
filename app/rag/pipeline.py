@@ -30,9 +30,13 @@ class EcommerceRAGPipeline:
         ]
         product_keywords = [
             r"\brecommend\b", r"\bsuggest\b", r"\bfind\b", r"\blooking for\b", r"\bbest\b", r"\bcompare\b",
-            r"\bheadphones?\b", r"\bshoes?\b", r"\blaptops?\b", r"\bwatch(es)?\b", r"\bair fryer\b",
-            r"\bvacuums?\b", r"\bcoffee\b", r"\bsony\b", r"\bbose\b", r"\bapple\b", r"\bnike\b",
-            r"\basics\b", r"\bdyson\b", r"\bninja\b", r"\bunder\s+\$?\d+"
+            r"\bheadphones?\b", r"\bearbuds?\b", r"\bshoes?\b", r"\blaptops?\b", r"\bwatch(es)?\b",
+            r"\bphones?\b", r"\bmobiles?\b", r"\bsmartphones?\b", r"\bair fryer\b", r"\bvacuums?\b",
+            r"\bcookers?\b", r"\bmixer\b", r"\bsandwich\b", r"\bgrinder\b",
+            r"\bsamsung\b", r"\bredmi\b", r"\boneplus\b", r"\bboat\b", r"\bnoise\b", r"\bhp\b",
+            r"\blenovo\b", r"\badidas\b", r"\bprestige\b", r"\bphilips\b", r"\bbajaj\b", r"\bvivo\b",
+            r"\bfastrack\b", r"\bapple\b", r"\bnike\b", r"\bsony\b", r"\bbose\b",
+            r"\bunder\s+(?:[\$₹]|rs\.?|inr)?\s*[\d,]+"
         ]
 
         has_policy = any(re.search(p, q) for p in policy_keywords)
